@@ -1,11 +1,9 @@
 # 数据库相关
 ### 小工
 
-start
+(运行 mysql -u root -h 127.0.0.1 -p 进入数据库)
 
-mysql -u root -h 127.0.0.1 -p 
-
-* 0 [安装(Ubuntu 16.04 LTS)](https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
+* [0 安装(Ubuntu 16.04 LTS)](https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
 
 * 1 database 和table 指令
 
