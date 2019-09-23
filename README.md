@@ -1,4 +1,4 @@
-# 数据库相关
+# 数据库从小白到进阶
 ### 小工
 
 (运行 mysql -u root -h 127.0.0.1 -p 进入数据库)
@@ -11,8 +11,18 @@
   * create database <database_name> 创建数据库
   * drop database <database_name>  删除数据库
   * use <database_name>  切换数据库
-  * select database() 显示当前使用的数据库
+  * select database() 显示当前使用的数据库 
   
+  * create table <table_name> (<column1_name> <data_type> <data_feature>,<column2_name> <data_type> <data_feature>)
+  
+    * NOT NULL 必须有值,不能为空 
+    * AUTO_INCREMENT 自增 
+    * PRIMARY KEY 值唯一,可以标识某个连续字段唯一 
+      * create table <table_name>(c1 type1,c2 type2,c3 type3,PRIMARY (c1,c2))
+    * DEFAULT "<value>" 默认值 <value>
+    * UNIQUE 值可以为NULL,只要有值的时候不重复
+
+  * insert into <table_name>  (<column1_name>,<column2_name>,) values ("<value1>","<value2>"),("<value3>","<value4>")
   * show tables
   * desc <table_name> show 与→一致columns from <table_name>
   * drop table <table_name>
