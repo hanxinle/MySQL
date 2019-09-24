@@ -28,4 +28,18 @@
   * drop table <table_name>
   
   * dilimiter <符号> 用<符号>代替分号作为语句结束标记,执行 mysql语句
+  
+* CRUD 
+  * Create 看第1节
+  * Read select用法
+  * update 结合set使用
+  * delete 删除记录k
+* 字符串
+  * CONCAT 拼接两个字符串 CONCAT_WS(arg1,string1,string2) ==> "string1 arg1 string2"
+  * SUBSTRING 截取字符串
+  
+  select CONCAT(first_name," ",last_name,"was hired on",SUBSTRING(hired_date,1,4)) as check from employee ;
+  
+  * REPLACE ("string1 string2","string2","string3") ==> string1 string3
+  * REVERSE 反转
 
