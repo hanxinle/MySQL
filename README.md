@@ -62,11 +62,16 @@
       
      select * from employee ORDER BY salary LIMIT 3; //限制返回结果数量为3
      
-     select * from employee ORDER BY salary LIMIT 3,5 //salary排第3+1项开始,返回5个结果 
+     select * from employee ORDER BY salary LIMIT 3,5; //salary排第3+1项开始,返回5个结果 
      
-   * 字符串顾虑 LIKE
+   * 字符串过滤 LIKE
+   
+     select * from employee where last_name like "C%"; // % 匹配任意长度字符
+    
+     select * from employee where last_name like "__an"; // 两个_代表任意两个字符;
      
-     
+     PS : like中包含%的字符串,用\转义,如 "%\%%",转义\可以用于其它符号.
+
   
   
   
