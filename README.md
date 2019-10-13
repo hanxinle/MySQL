@@ -24,6 +24,7 @@
     * DEFAULT "<value>" 默认值 <value>
     * UNIQUE 值可以为NULL,只要有值的时候不重复
 
+  * select * from <table_name>;   //查看table信息
   * insert into <table_name>  (<column1_name>,<column2_name>,) values ("<value1>","<value2>"),("<value3>","<value4>")
   * show tables
   * desc <table_name> show 与→一致columns from <table_name>
@@ -117,4 +118,6 @@
          //where 只能对原始的 table进行过滤;
          
          select title,count(*) from employee where title="Software Engineer";
+         
+* 数据类型 - 
      
