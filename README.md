@@ -119,5 +119,129 @@
          
          select title,count(*) from employee where title="Software Engineer";
          
-* 数据类型 - 
-     
+* [DATA Type - 数值类型](https://dev.mysql.com/doc/refman/5.7/en/numeric-types.html)
+    
+    * [Integer Types 整数类型](https://dev.mysql.com/doc/refman/5.7/en/integer-types.html)
+        
+        这一类别的集中类型的区别在于所占的空间及表示的范围,
+        
+        ```create table datatest0 (a tinyint,b smallint,c mediumint,d int,e bigint);```  //未设置a是正数
+        
+        desc datatest0;     //查看每列所占空间;
+        
+        insert datatest0(a) values(129);  //error,-128~127
+
+         ```create table datatest1 (a tinyint unsigned,b smallint,c mediumint,d int,e bigint);```  //
+         
+        desc datatest1;
+       
+        insert datatest0(a) values(129);  //OK,0~255
+        
+    
+    * [Fix-point Types 绝对数值类型](https://dev.mysql.com/doc/refman/5.7/en/fixed-point-types.html)
+        
+        这一类型用于需要精确数据的时候,例如涉及金钱的时候,
+        
+        salary DECIMAL(5,2) 第一个参数表示这个数字有多少位,第二个参数表示小数点后面的位数,-999.99 - 999.99,小数点后面两位也要占位.
+        
+        create table test (price decimal(5,2));
+        
+        insert into test(price) values (12);  //位数不够会补位,小数部分超了会截取,会四舍五入,正数部分超了就报错,有截取会报错,用
+        
+        show warnings;  //查看刚刚出现的警告信息;
+        
+        
+    * [Float-point Types 浮点数类型](https://dev.mysql.com/doc/refman/5.7/en/floating-point-types.html)
+        
+        有 float 和 double 两种类型,会有实际存储数据与我们插入数据不相符的时候,具体原因在这个[链接](https://dev.mysql.com/doc/refman/5.7/en/problems-with-float.html)
+    
+    
+    
+    * [Bit value Type 位类型](https://dev.mysql.com/doc/refman/5.7/en/bit-type.html)
+    
+       在使用的时候,需要指明位数BIT(M),M的取值是1~64.
+       
+       create table test2 (a bit);//默认是1
+       create table test3 (a bit(12));
+       
+       insert into test3(a) values(11);
+       
+       select 可能显示不出来数据,
+       
+       select a+0 from test3;  //十进制显示
+       
+       select bin(a+0) from test3;  //二进制显示
+       
+       select hex(a+0) from test3;  //十六进制显示
+       
+       insert into test3(a) values(b'11111111'); //插入二进制'255'的方法;
+       
+            
+* [DATE and Time Type - 日期类型](https://dev.mysql.com/doc/refman/5.7/en/date-and-time-types.html)
+          
+    * DATE 
+    
+      范围:1000-01-01 到 9999-12-31;
+
+    * TIME
+    
+       范围:-838:59:59 到 838:59:59
+       
+       create table test(a date);
+       
+       insert into table (a) values('2010-10-30'); //OK
+       
+       insert into table (a) values ('20101030');  //OK
+       
+       有缺省则会报错.但是可以为NULL.
+       
+       create table test(a time);
+       
+       insert into test(a) values('12:12:12')\values('121212')\values(121212); //time的几种形式;
+       
+       time 缺省会补全,补全的单位不是按单位大小排列,要实验.
+      
+    * YEAR or YEAR(4)
+
+       4 digital number 和 4 digital string 时范围都是1901-2155,string值在values("xxx")用双引号;
+       
+       number类型时,如果插入1-69,默认为2001-2069,如果是70-99,默认是1970-1999.
+       
+       为string 类型时,情况又有所不同.
+       
+       
+    * DATETIME AND TIMESTAMP
+    
+       二者是date和time的结合,有不同的范围,TIMESTAMP创建时有默认值(系统当前时间),并且它的值会随着时区的改变而改变,在更新table时,TIMESTAMP的值会更自动改为当前系统时间,二者存储所占字节不同,index速度也不同.
+       
+       select now();  //查看当前系统时间
+       
+       更改mysql timezone:
+       
+       show variables like "%time_zone%";
+       
+        +------------------+--------+
+        
+        | Variable_name    | Value  |
+        
+        +------------------+--------+
+        
+        | system_time_zone | CST    |
+        
+        | time_zone        | SYSTEM |
+        
+        +------------------+--------+
+        
+        
+       create table timetest(a datetime,b timestamp);
+       
+       insert into timetest(a,b) values(now(),now());
+       
+       set time_zone="-12:00" ;  //比当前时间少12小时,美国时间,注意时间的格式是UTC时间,因为是string类型
+       
+       set time_zone="system;    //改回来
+       
+       PS:[这里](https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html)是关于时间的函数
+ 
+    * 
+  
