@@ -231,6 +231,7 @@
         | time_zone        | SYSTEM |
         
         +------------------+--------+
+      
         
         
        create table timetest(a datetime,b timestamp);
@@ -239,9 +240,79 @@
        
        set time_zone="-12:00" ;  //比当前时间少12小时,美国时间,注意时间的格式是UTC时间,因为是string类型
        
-       set time_zone="system;    //改回来
-       
+       set time_zone="system";    //改回来
+        
        PS:[这里](https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html)是关于时间的函数
- 
-    * 
+
+* [String Type - 字符类型]
+  
+    * CHAR\VARCHAR
+    
+      char 0-255,varchar长度可变,0-65535,
+      
+    * BINARY\VARBINARY
+    
+      见[文档](https://dev.mysql.com/doc/refman/5.7/en/binary-varbinary.html)  
+      
+    * BLOB\TEXT 
+      
+      见[文档](https://dev.mysql.com/doc/refman/5.7/en/storage-requirements.html),BLOB对应非常大的BINARY对象,TEXT对应的是
+      
+      非常大的CHAR,比如存储一篇博客.
+      
+    * ENUM 
+        
+      string object ,其取值从list中获取,如性别,尺码.
+      
+      create table shirts (name varchar(40),size enum('x-small','small','medium','large','x-large'));
+      
+      insert into shirts values("test","small");
+      
+      insert into shirts values("test",1);  //不论插入或者查询,enum都比较快
+      
+    * SET 集合
+        
+      最大有64个成员,
+      
+      create table set1(a set(' one','two','three'));
+      
+      insert into set1 values('one,three');
+      
+      insert into set1 values(1);
+      
+      insert into set1 values(2);
+      
+      ...
+      
+      insert into set1 values(7);
+      
+      取值范围是2的n次方,n为set个数,其组织类似于机器学习中的虚拟编码的方式.
+    
+* 修改column名字\类型
+     
++----------+-------------+------+-----+---------+-------+
+
+| Field    | Type        | Null | Key | Default | Extra |
+
++----------+-------------+------+-----+---------+-------+
+
+| username | varchar(15) | YES  |     | NULL    |       |
+
+| password | varchar(20) | YES  |     | NULL    |       |
+
++----------+-------------+------+-----+---------+-------+
+
+ALTER TABLE user CHANGE username user_name varchar(20);
+
++-----------+-------------+------+-----+---------+-------+
+
+| Field     | Type        | Null | Key | Default | Extra |
+
++-----------+-------------+------+-----+---------+-------+
+
+| user_name | varchar(20) | YES  |     | NULL    |       |
+
+| password  | varchar(20) | YES  |     | NULL    |       |
+
++-----------+-------------+------+-----+---------+-------+
   
