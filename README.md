@@ -316,3 +316,57 @@ ALTER TABLE user CHANGE username user_name varchar(20);
 
 +-----------+-------------+------+-----+---------+-------+
   
+
+* 逻辑操作符
+
+  * Equal(=) 和 NOT equal(!= or not xx=yy)  
+  
+  * Like(where xx like "N%") 和 NOT like (where xxx not like "xx%") 
+  
+  * Greater Than 和 Less Than (>= \ <=) 逻辑符号也是认的
+  
+  * AND 和 or (对语句的判断)
+  
+  * between (where xx between mm and kk) mm <= xx <= kk
+  
+  * IN 和 NOT IN (where xx in (111,222,333)
+  
+  * Case Statement (产生新的列及值的方法)
+    
+    select first_name, last_name,
+        
+        case
+            
+            when salary > 7000 then "high"
+            else "low"
+            
+        end as tag
+        
+    from employee;      
+   
+   
+* 内置函数(此处举例,具体用法去查函数表)
+
+  * 字符串(见上面例子)
+  
+  * 数值 
+   
+      ceil 和 floor 取整数,div,mod,power,round
+  
+  * 时间
+       
+      now,curdate,curtime,date_format,interval date_add(now(),xx day\xx week),datediff
+       
+  * 信息 (mysql软件相关)
+  
+  * 集合函数 (max,min等) 
+  
+  * 加密函数(MD5,Password)
+    
+    password 修改 mysql 密码,
+    
+        set password=password('abc123456');
+        
+    MD5('passwd')  加密字符串    
+   
+               
