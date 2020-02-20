@@ -369,4 +369,6 @@ ALTER TABLE user CHANGE username user_name varchar(20);
         
     MD5('passwd')  加密字符串    
    
-               
+* 关系
+
+不同的表可以有效率地表达信息，减少单个表信息的冗余，当需要的时候，可以通过联结表征更多信息。关系有一对多、多对多几种，用新的表的形式组织，联结的对象是table，联结有内部联结（inner join）、外部联结（left join、left join）。
