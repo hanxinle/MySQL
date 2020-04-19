@@ -4,6 +4,7 @@
 通过 vscode 安装插件连接 mysql 并且操作，在建立连接的时候，提示“Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client”，解决方法是打开 >mysql，执行以下语句：
 
 ```ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';```
+
 (运行 mysql -u root -h 127.0.0.1 -p 进入数据库)
 
 
