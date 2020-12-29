@@ -1,0 +1,1098 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>Mysql API C++数据库编程</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="74aoqcgvehv80devlph0brje42">Mysql API C++数据库编程</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="Mysql API C++%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B_files/images/Mysql API C++%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B.jpg"></div>
+<h2 class="topic">
+<a name="495687al9h6omchb5tcfk81g61">Mysql的应用场景</a>
+</h2>
+<h3 class="topic">
+<a name="3c4akf1le696ur0cd8ak9n073v">&nbsp;嵌入现有的系统</a>
+</h3>
+<h3 class="topic">
+<a name="248fr9d5nnq0klis76fo6vjmh2">&nbsp;逻辑数据的存储</a>
+</h3>
+<h2 class="topic">
+<a name="1kaj7oken7mbap0tgr2sadtlvt">Windows平台环境准备</a>
+</h2>
+<h3 class="topic">
+<a name="5vko6co4d32e5u7af5mu6mslnp">&nbsp;mysql server 8.0 安装配置</a>
+</h3>
+<h3 class="topic">
+<a name="232f7v2uud65mq2bvr7370fbsk">&nbsp;&nbsp; 下载mysql server 8.0</a>
+</h3>
+<h3 class="topic">
+<a name="14irp5cnhm1oqnqpuieu96o0h8">&nbsp;&nbsp;&nbsp;http://ffmpeg.club/mysql.html</a>
+</h3>
+<h3 class="topic">
+<a name="0rnthh8k477kitpjkb8pd8laqb">&nbsp;&nbsp;自定义安装mysql server</a>
+</h3>
+<h3 class="topic">
+<a name="2b9h034mgc9pgapjae9jp198df">&nbsp;&nbsp;&nbsp;包含了安装Client C API</a>
+</h3>
+<h3 class="topic">
+<a name="0ma977tu2628bvf8uumkhfa6or">&nbsp;&nbsp;初始化数据库获取root初始密码</a>
+</h3>
+<h3 class="topic">
+<a name="51djl3vjq3k8roa2gu7n2isa0q">&nbsp;&nbsp;&nbsp;mysqld --initialize --console</a>
+</h3>
+<h3 class="topic">
+<a name="2hf09cmp5pjboeo26p16l0r74o">&nbsp;&nbsp;服务安装与启动</a>
+</h3>
+<h3 class="topic">
+<a name="2sdvohv7abb4pfr2f12c830p0c">&nbsp;&nbsp;&nbsp;mysqld --install mysql8.0</a>
+</h3>
+<h3 class="topic">
+<a name="7lr0pjos3ib2cql4h2fmheh50g">&nbsp;&nbsp;&nbsp;net start mysql8.0</a>
+</h3>
+<h3 class="topic">
+<a name="3u241s2225g9jukl2m7fsjb4b3">&nbsp;&nbsp;首次使用修改root码</a>
+</h3>
+<h3 class="topic">
+<a name="7rmku72paccf2ct1cjf3ugilb4">&nbsp;&nbsp;&nbsp;mysql -u root -prdE5yCr0Xw)=</a>
+</h3>
+<h3 class="topic">
+<a name="6jeb0s0iqo80400d4sgugmu7q2">&nbsp;&nbsp;&nbsp;ALTER USER "root"@"localhost" IDENTIFIED  BY "123456";</a>
+</h3>
+<h3 class="topic">
+<a name="5v6evb0tbp9610o5nr9ef92tch">&nbsp;&nbsp;修改数据库远程访问权限</a>
+</h3>
+<h3 class="topic">
+<a name="5rj0jhnlh87bp96m35tr517uhc">&nbsp;&nbsp;&nbsp;mysql -u root -p123456 -h 192.168.0.201</a>
+</h3>
+<h3 class="topic">
+<a name="2a4cjs61f2cl5tqf7q2naoi03h">&nbsp;&nbsp;&nbsp;use mysql</a>
+</h3>
+<h3 class="topic">
+<a name="3f8tj5avuu00nharb3eg0d79ga">&nbsp;&nbsp;&nbsp;update user set host="%" where user="root";</a>
+</h3>
+<h3 class="topic">
+<a name="4qe9lmna7coih10dmbipcldr4q">&nbsp;&nbsp;&nbsp;flush privileges;</a>
+</h3>
+<h3 class="topic">
+<a name="299auq143h5hebai2brtbrj49m">&nbsp;mysql 客户端安装和使用示例</a>
+</h3>
+<h3 class="topic">
+<a name="0rd5822qfe74rvl66f4pik4rqe">&nbsp;&nbsp;MySQL Workbench 8.0下载</a>
+</h3>
+<h3 class="topic">
+<a name="6fhvik32i9s2rhe4nglngmbej7">&nbsp;&nbsp;&nbsp;http://ffmpeg.club/mysql.html</a>
+</h3>
+<h3 class="topic">
+<a name="34ink98r3snk5hh0brmm5f2nf9">&nbsp;&nbsp;Workbench安装</a>
+</h3>
+<h3 class="topic">
+<a name="5bnio7od4ctadqa9oon28ilq4b">&nbsp;&nbsp;&nbsp;依赖环境安装vs2015和.net4.5</a>
+</h3>
+<h3 class="topic">
+<a name="6gda172s23j1cmphd6lfs36rt1">&nbsp;&nbsp;&nbsp;安装版和免安装版本</a>
+</h3>
+<h3 class="topic">
+<a name="3pdaqafjsg7r150t82m1uk9e05">&nbsp;&nbsp;Workbench使用说明</a>
+</h3>
+<h3 class="topic">
+<a name="0q88aj5ou0o7uuinbghvsfufb9">&nbsp;&nbsp;&nbsp;建立连接</a>
+</h3>
+<h3 class="topic">
+<a name="473cfsga0g1esiutblv0487u40">&nbsp;&nbsp;&nbsp;创建数据库</a>
+</h3>
+<h3 class="topic">
+<a name="6a235cmh6p14un2isouvn08a5b">&nbsp;&nbsp;&nbsp;查询表</a>
+</h3>
+<h3 class="topic">
+<a name="1mu9qnf473kbqom4c08ms363f2">&nbsp;&nbsp;&nbsp;插入和修改表数据</a>
+</h3>
+<h3 class="topic">
+<a name="4vgehc88bp0s3e9o7luqvcrpnd">&nbsp;&nbsp;&nbsp;管理用户</a>
+</h3>
+<h3 class="topic">
+<a name="4b13gnmqrmf66c5qq47c47ekv9">&nbsp;mysql库的vs2017开发环境准备</a>
+</h3>
+<h3 class="topic">
+<a name="34500h5oe6crf3c5shqqa4ncj6">&nbsp;&nbsp;下载vs2017社区版 </a>
+</h3>
+<h3 class="topic">
+<a name="4gj635bpk79hpm69bap2nittc2">&nbsp;&nbsp;&nbsp;http://ffmpeg.club/tools_download.html</a>
+</h3>
+<h3 class="topic">
+<a name="3okek6chpocaion8lt45gufpdl">&nbsp;&nbsp;准备好头文件、lib库文件、dll动态库文件</a>
+</h3>
+<h3 class="topic">
+<a name="5018dk4fj0qme63s83i2k6htsk">&nbsp;&nbsp;创建测试项目，初始化MYSQL，包括使用mysql的动态库和静态库</a>
+</h3>
+<h2 class="topic">
+<a name="1dusbmp1rfs3psehvp2icd444k">Linux平台环境准备</a>
+</h2>
+<h3 class="topic">
+<a name="07pujv2fkgqjip98o6vno1n26g">&nbsp;mysql server 8.0 安装</a>
+</h3>
+<h3 class="topic">
+<a name="4o6mmq45iecgv09cjvnp51p0vn">&nbsp;&nbsp;ubuntu 18.04 64</a>
+</h3>
+<h3 class="topic">
+<a name="6gtuttgmqd6f5020v9noc3deej">&nbsp;&nbsp;&nbsp;ffmpeg.club/mysql.html</a>
+</h3>
+<h3 class="topic">
+<a name="1r1uori7a9i325siag0oeq905h">&nbsp;&nbsp;&nbsp;http://releases.ubuntu.com/18.04.1/ubuntu-18.04.1-desktop-amd64.iso</a>
+</h3>
+<h3 class="topic">
+<a name="1aqpj5phdtpt3cb7412cogqpbj">&nbsp;&nbsp;下载deb</a>
+</h3>
+<h3 class="topic">
+<a href="https://dev.mysql.com/downloads/repo/apt/" name="6cd4ccntkr0f0e0tu12967co25">&nbsp;&nbsp;&nbsp;https://dev.mysql.com/downloads/repo/apt/</a>
+</h3>
+<h3 class="topic">
+<a href="https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb" name="05nlmr9vi6kamsp1io9gqacskf">&nbsp;&nbsp;&nbsp;wget https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb</a>
+</h3>
+<h3 class="topic">
+<a name="58i8ibobakbm5j0geue4426n8o">&nbsp;&nbsp;&nbsp;dpkg -i mysql-apt-config_0.8.10-1_all.deb</a>
+</h3>
+<h3 class="topic">
+<a name="2hdc5a57mfvlh9426872o6io3a">&nbsp;&nbsp;&nbsp;apt-get update</a>
+</h3>
+<h3 class="topic">
+<a name="2a57u3qjoiqo3g535ul031aa6d">&nbsp;&nbsp;安装</a>
+</h3>
+<h3 class="topic">
+<a name="1i601i9bl3v4ogc1oqs23r0ulr">&nbsp;&nbsp;&nbsp;apt-get install mysql-server</a>
+</h3>
+<h3 class="topic">
+<a name="555mucd1qe8lp31kleh4sdhapr">&nbsp;&nbsp;&nbsp;修改数据库远程访问权限</a>
+</h3>
+<h3 class="topic">
+<a name="19npb6r6rrnvcagudthfppm020">&nbsp;&nbsp;&nbsp;&nbsp;mysql -u root -p123456 -h 192.168.0.201</a>
+</h3>
+<h3 class="topic">
+<a name="0amff6t1dp5cm2g2lg89atgsl2">&nbsp;&nbsp;&nbsp;&nbsp;use mysql</a>
+</h3>
+<h3 class="topic">
+<a name="60dgfig9fimtb4af9v730rj1f6">&nbsp;&nbsp;&nbsp;&nbsp;update user set host="%" where user="root";</a>
+</h3>
+<h3 class="topic">
+<a name="3j8m1appdo4gs5k668iss6fes0">&nbsp;&nbsp;&nbsp;&nbsp;flush privileges;</a>
+</h3>
+<h3 class="topic">
+<a name="1r1qksmefgca7t3qeeku9ht1dp">&nbsp;mysql 开发环境测试</a>
+</h3>
+<h3 class="topic">
+<a name="5tiegmeccgh45f9dhj1fl0cj3h">&nbsp;&nbsp;安装编译环境 make g++</a>
+</h3>
+<h3 class="topic">
+<a name="10mu41ljk1rmfnv5ri8nlpp41f">&nbsp;&nbsp;&nbsp;apt-get install make g++</a>
+</h3>
+<h3 class="topic">
+<a name="17rt83dhp4rfqhubvvt21ecboc">&nbsp;&nbsp;安装libmysqlclient_dev</a>
+</h3>
+<h3 class="topic">
+<a name="71t6lce67dn4346deru8h8g36d">&nbsp;&nbsp;&nbsp;apt-get install libmysqlclient-dev</a>
+</h3>
+<h3 class="topic">
+<a name="4ofecd2aadhe4c6akluggdgpb6">&nbsp;&nbsp;/usr/lib/x86_64-linux-gnu/libmysqlclient.so</a>
+</h3>
+<h3 class="topic">
+<a name="5f0r4gk034jidpemq7sl63po4p">&nbsp;&nbsp;g++ tm.cpp -o tm -I /usr/include/mysql -lmysqlclient</a>
+</h3>
+<h3 class="topic">
+<a name="3k39u9u89mvpbu3o1ns6jvcrcs">&nbsp;&nbsp;由于代码一致，我们创建好mysql项目的makefile，后面代码在windows中演示，可直接移植到linux</a>
+</h3>
+<h2 class="topic">
+<a name="5gufqkv3at9dpgac4von8sdb65">mysql初始化和清理</a>
+</h2>
+<h3 class="topic">
+<a name="5k1srrhmpatsrci2tlrd79qneo">&nbsp;MYSQL *mysql_init(MYSQL *mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="76chbubrphi3f978mcprnncmoi">&nbsp;int mysql_library_init(int argc, char **argv, char **groups)</a>
+</h3>
+<h3 class="topic">
+<a name="6ucnf0cu3ulrqp4qmql07ul4cp">&nbsp;void mysql_library_end(void)</a>
+</h3>
+<h3 class="topic">
+<a name="6d28r090ioquflcr1502og6aju">&nbsp;mysql_close(MYSQL *m)</a>
+</h3>
+<h2 class="topic">
+<a name="0rij89574gegp8tgs8fnn5bj8b">数据库连接登录</a>
+</h2>
+<h3 class="topic">
+<a name="3b1amggd75b11p10qe4vvenmmf">&nbsp;mysql_real_connect</a>
+</h3>
+<h3 class="topic">
+<a name="2151ojl893l0v0ofod0lgj5lu6">&nbsp;&nbsp;MYSQL *mysql_real_connect(MYSQL *mysql, const char *host</a>
+</h3>
+<h3 class="topic">
+<a name="6bp5d6va1of8v916i4bf70sk7c">&nbsp;&nbsp;, const char*user, const char *passwd, const char *db, unsigned int port</a>
+</h3>
+<h3 class="topic">
+<a name="71h9gqvr0harlsiu6bivogd2b0">&nbsp;&nbsp;, const char *unix_socket, unsigned long client_flag)</a>
+</h3>
+<h3 class="topic">
+<a name="16r05jg2aghl65ci8c813p4jlm">&nbsp;mysql_options  超时设定</a>
+</h3>
+<h3 class="topic">
+<a name="5e5p1vtprcbsv6376f0qn3hc45">&nbsp;&nbsp;MYSQL_OPT_CONNECT_TIMEOUT (argument type: unsigned int *)</a>
+</h3>
+<h3 class="topic">
+<a name="61pakqgb1t54c02udk5fp342sc">&nbsp;&nbsp;MYSQL_OPT_READ_TIMEOUT (argument type: unsigned int *)</a>
+</h3>
+<h3 class="topic">
+<a name="2f64rga1o2j9c93usp8vun2hh1">&nbsp;mysql_options断开重连</a>
+</h3>
+<h3 class="topic">
+<a name="4m2t3kcbi00ork763qmi29tfkm">&nbsp;&nbsp;bool reconnect = 0;</a>
+</h3>
+<h3 class="topic">
+<a name="1s75anqglql8k6ngun8luh5vq3">&nbsp;&nbsp;mysql_options(&amp;mysql, MYSQL_OPT_RECONNECT, &amp;reconnect)</a>
+</h3>
+<h3 class="topic">
+<a name="04esugteg3jkj1re2uj0s0fjp0">&nbsp;&nbsp;&nbsp;Enable or disable automatic reconnection to the server if the connection is found to have been lost.</a>
+</h3>
+<h3 class="topic">
+<a name="1dtht7j7uro73n6f5qgh08sv8l">&nbsp;&nbsp;&nbsp;Reconnect is off by default; this option provides a way to set reconnection behavior explicitly. See</a>
+</h3>
+<h3 class="topic">
+<a name="02q12i4e2efioh4qs2oojok26m">&nbsp;&nbsp;mysql_ping()</a>
+</h3>
+<h2 class="topic">
+<a name="1inrtrrtb1ga8lqshjfgj9tf73">Mysql API 数据查询</a>
+</h2>
+<h3 class="topic">
+<a name="17hgo8sbl07d4otgi3di3a5v69">&nbsp;1 执行SQL语句</a>
+</h3>
+<h3 class="topic">
+<a name="5cchdubs8maoff0l0jrv99vdju">&nbsp;&nbsp;int mysql_real_query(MYSQL *mysql, const char *stmt_str, unsigned long&#13;
+length)</a>
+</h3>
+<h3 class="topic">
+<a name="31ii6n96fs45o8ut70h5dd2iti">&nbsp;&nbsp;&nbsp;不需要分号；结束</a>
+</h3>
+<h3 class="topic">
+<a name="34jc93em3nnl9cf8fnhcbh02op">&nbsp;&nbsp;int mysql_query(MYSQL *mysql, const char *stmt_str)</a>
+</h3>
+<h3 class="topic">
+<a name="1q5oegshuhb4rqq7onke6es7e8">&nbsp;&nbsp;&nbsp;不能有二进制数据，不需要分号；结束</a>
+</h3>
+<h3 class="topic">
+<a name="4sti58a4mjmvcqq8bt8na7keev">&nbsp;2 获取结果集</a>
+</h3>
+<h3 class="topic">
+<a name="6saqmr6pg9b3fb1dhfk3dldi0c">&nbsp;&nbsp;MYSQL_RES *mysql_use_result(MYSQL *mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="2nvl83kog06d68a2jc2o3qq17l">&nbsp;&nbsp;&nbsp;not actually read</a>
+</h3>
+<h3 class="topic">
+<a name="1q9ma853ongnh2pr1o7ftthqc7">&nbsp;&nbsp;&nbsp;each row must be retrieved individually by making</a>
+</h3>
+<h3 class="topic">
+<a name="4nhg832b1qisqd7og4qskj4v12">&nbsp;&nbsp;&nbsp;&nbsp;This reads the result of a query directly from the server without storing</a>
+</h3>
+<h3 class="topic">
+<a name="6cv9dmdnil4l5rn3phnvsu1fv1">&nbsp;&nbsp;&nbsp;&nbsp;it in a temporary table or local buffer, which is somewhat faster and uses much less memory than</a>
+</h3>
+<h3 class="topic">
+<a name="60okcq5js8eqfkmt5oedrelu32">&nbsp;&nbsp;&nbsp;&nbsp;mysql_store_result().</a>
+</h3>
+<h3 class="topic">
+<a name="1co21ddjs6bic3q1eajlcvhibq">&nbsp;&nbsp;&nbsp;calls to mysql_fetch_row()</a>
+</h3>
+<h3 class="topic">
+<a name="1beeh8rs5tq3lua5cllp8oebv1">&nbsp;&nbsp;&nbsp;&nbsp;This reads the result of a query directly from the server without storing</a>
+</h3>
+<h3 class="topic">
+<a name="0c02qtq1ddef9q7bhaleel4eat">&nbsp;&nbsp;&nbsp;&nbsp;it in a temporary table or local buffer, which is somewhat faster and uses much less memory than</a>
+</h3>
+<h3 class="topic">
+<a name="6sokg6tk19pioqmdr7km8ien4o">&nbsp;&nbsp;&nbsp;&nbsp;mysql_store_result().</a>
+</h3>
+<h3 class="topic">
+<a name="3dcs87ehdcbjl733e1hi5a75i4">&nbsp;&nbsp;&nbsp;Commands out of sync; you can't run this command now</a>
+</h3>
+<h3 class="topic">
+<a name="7v5u5498v7i9hdnpot7n65c84v">&nbsp;&nbsp;MYSQL_RES *mysql_store_result(MYSQL *mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="138b3ara44gneupb371abo18e3">&nbsp;&nbsp;&nbsp;max_allowed_packet</a>
+</h3>
+<h3 class="topic">
+<a name="57a2saeulipt1t2v20dpio3ifq">&nbsp;&nbsp;&nbsp;&nbsp;The default is 64MB.</a>
+</h3>
+<h3 class="topic">
+<a name="6qh2n3neenua17dm2f9i25uigq">&nbsp;&nbsp;&nbsp;&nbsp;Default Value (&gt;= 8.0.3) 67108864</a>
+</h3>
+<h3 class="topic">
+<a name="5on1oaf1vojop2hb0lul948qeq">&nbsp;&nbsp;&nbsp;&nbsp;Default Value (&lt;= 8.0.2) 4194304</a>
+</h3>
+<h3 class="topic">
+<a name="78ngn7b5k8c3i2c1qeemdikb4q">&nbsp;&nbsp;&nbsp;&nbsp;Minimum Value 1024</a>
+</h3>
+<h3 class="topic">
+<a name="205cdmi00ano9o8d1e0kcfe20t">&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_ROW mysql_fetch_row(MYSQL_RES *result)</a>
+</h3>
+<h3 class="topic">
+<a name="69cdrp5oodemrc6fggnvtnr25u">&nbsp;&nbsp;&nbsp;MYSQL_OPT_MAX_ALLOWED_PACKET</a>
+</h3>
+<h3 class="topic">
+<a name="12vispun28m94d74v0chhe6vs0">&nbsp;&nbsp;&nbsp;&nbsp;mysql_options</a>
+</h3>
+<h3 class="topic">
+<a name="1n6rt5iubut5nc659amaeec47l">&nbsp;3 遍历和清理结果集</a>
+</h3>
+<h3 class="topic">
+<a name="2n7720ibl0ke5uqc4nht6ksd52">&nbsp;&nbsp;MYSQL_ROW mysql_fetch_row(MYSQL_RES *result)</a>
+</h3>
+<h3 class="topic">
+<a name="43eq2rt22nj9rd1rpicdg58hh2">&nbsp;&nbsp;unsigned long *mysql_fetch_lengths(MYSQL_RES *result)</a>
+</h3>
+<h3 class="topic">
+<a name="7nbcmhbnbti630bqfavgrnuunq">&nbsp;&nbsp;void mysql_free_result(MYSQL_RES *result)</a>
+</h3>
+<h2 class="topic">
+<a name="313r44d5a7ul9pjv95jnkor35g">表结构获取</a>
+</h2>
+<h3 class="topic">
+<a name="3q7mhc1bf2bvqm9p9h4jofsa44">&nbsp;MYSQL_FIELD *mysql_fetch_field(MYSQL_RES *result)</a>
+</h3>
+<h3 class="topic">
+<a name="38vl72g54u0nn4u1dcvmh875fd">&nbsp;&nbsp;MYSQL_FIELD *field;&#13;
+while((field = mysql_fetch_field(result)))&#13;
+{&#13;
+printf("field name %s\n", field-&gt;name);&#13;
+}</a>
+</h3>
+<h3 class="topic">
+<a name="31oo8klfkp11nk5bkej6jsqekl">&nbsp;unsigned int mysql_num_fields(MYSQL_RES *result)</a>
+</h3>
+<h3 class="topic">
+<a name="07hfl5bbj38krnqrg59tsq543k">&nbsp;MYSQL_FIELD *mysql_fetch_field_direct(MYSQL_RES *result, unsigned int fieldnr)</a>
+</h3>
+<h3 class="topic">
+<a name="6h66q6nfluihd9gtrd6majbo2l">&nbsp;&nbsp;num_fields = mysql_num_fields(result);&#13;
+for(i = 0; i &lt; num_fields; i++)&#13;
+{&#13;
+field = mysql_fetch_field_direct(result, i);&#13;
+printf("Field %u is %s\n", i, field-&gt;name);&#13;
+}</a>
+</h3>
+<h3 class="topic">
+<a name="6h52usujh265cau5rp3s6jsqa2">&nbsp;MYSQL_OPT_OPTIONAL_RESULTSET_METADATA (argument type: bool *)</a>
+</h3>
+<h3 class="topic">
+<a name="0ulavei5b5amkbanugjk3pgbi0">&nbsp;&nbsp;mysql_options</a>
+</h3>
+<h2 class="topic">
+<a name="24a6al79a64dja5jdmibvfb3p2">表创建、数据增删改</a>
+</h2>
+<h3 class="topic">
+<a name="66h8ac1e90ra2j15crekj3isoh">&nbsp;创建表</a>
+</h3>
+<h3 class="topic">
+<a name="1lopqrubgl67pfqp6juajdo4ej">&nbsp;&nbsp;CREATE TABLE `t_image`  (&#13;
+  `id` int AUTO_INCREMENT,&#13;
+  `name` varchar(1024),&#13;
+  `path` varchar(2046),&#13;
+  `size` int ,&#13;
+PRIMARY KEY (`id`)&#13;
+)</a>
+</h3>
+<h3 class="topic">
+<a name="08vkc58ovtedika50d0bn2an5b">&nbsp;&nbsp;&nbsp;CREATE TABLE IF NOT EXISTS `t_image`  (&#13;
+  `id` int AUTO_INCREMENT,&#13;
+  `name` varchar(1024),&#13;
+  `path` varchar(2046),&#13;
+  `size` int ,&#13;
+PRIMARY KEY (`id`)&#13;
+)</a>
+</h3>
+<h3 class="topic">
+<a name="0dheasd8ifgbuk4hihva7kkh37">&nbsp;插入数据</a>
+</h3>
+<h3 class="topic">
+<a name="14nk8kolh308u2mou48cn6dkcv">&nbsp;&nbsp;my_ulonglong mysql_affected_rows(MYSQL *mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="6dqd3hh694p7dih11cjg3er761">&nbsp;&nbsp;&nbsp;returns the number of rows affected by the last query when doing an</a>
+</h3>
+<h3 class="topic">
+<a name="50l5flggrkbl2bpghdvff1qveg">&nbsp;&nbsp;&nbsp;INSERT, UPDATE, or DELETE</a>
+</h3>
+<h3 class="topic">
+<a name="63rkf6tbfd9ibljv8s7cn36f11">&nbsp;&nbsp;insert into t_image(`name`,path,size) VALUES("test","\root\test.png",123)</a>
+</h3>
+<h3 class="topic">
+<a name="7st4iku3n3s2lpmadsmpbb150r">&nbsp;&nbsp;my_ulonglong mysql_insert_id(MYSQL *mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="45i3s6lpmr059f9ub6j6c5s3ku">&nbsp;更新数据</a>
+</h3>
+<h3 class="topic">
+<a name="7k142j5uejlcm8e46b3d41vqlf">&nbsp;&nbsp;UPDATE `t_image` SET `name`='test1' WHERE `id`='1' </a>
+</h3>
+<h3 class="topic">
+<a name="2ggdjcm6nut906a6v4ueadadej">&nbsp;&nbsp;my_ulonglong mysql_affected_rows(MYSQL *mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="3jo9l93fjrf7ee93p34acfn4g2">&nbsp;&nbsp;&nbsp;returns the number of rows affected by the last query when doing an</a>
+</h3>
+<h3 class="topic">
+<a name="1gv83ek4efndblit5hi9trt5ct">&nbsp;&nbsp;&nbsp;INSERT, UPDATE, or DELETE</a>
+</h3>
+<h3 class="topic">
+<a name="78ue5cad0bk19ipd74o6sasb4q">&nbsp;清理数据</a>
+</h3>
+<h3 class="topic">
+<a name="40i3bsk81c7p8irbcdtcjlp0q3">&nbsp;&nbsp;delete from t_image</a>
+</h3>
+<h3 class="topic">
+<a name="02ah5hfh46rsbv118lh4mf89sd">&nbsp;&nbsp;&nbsp; OPTIMIZE TABLE t_image</a>
+</h3>
+<h3 class="topic">
+<a name="6mrdna468amj84b59rcpnj5bih">&nbsp;&nbsp;&nbsp;&nbsp;C:\ProgramData\MySQL\MySQL Server 8.0\Data\laoxiaketang</a>
+</h3>
+<h3 class="topic">
+<a name="4q80ktgrbm856jegujqvtsaefa">&nbsp;&nbsp;truncate t_image</a>
+</h3>
+<h3 class="topic">
+<a name="0c2mvlefajlg1gpcrv3fd56dnv">&nbsp;&nbsp;drop  table t_image</a>
+</h3>
+<h2 class="topic">
+<a name="4q74o5o54f1h3p9eba80s4g1ms">一次执行多条sql语句</a>
+</h2>
+<h3 class="topic">
+<a name="4gq48o8v60rq25nrs04doju7qc">&nbsp;CLIENT_MULTI_STATEMENTS</a>
+</h3>
+<h3 class="topic">
+<a name="2u5rplkmv7f6lg7vei8u9dmg6p">&nbsp;mysql_next_result</a>
+</h3>
+<h3 class="topic">
+<a name="1ba14jdt8dnk5hi4ciu157pjdd">&nbsp;mysql_affected_rows</a>
+</h3>
+<h2 class="topic">
+<a name="5vmir6ovrq38v2470219lakc2r">MYSQL API 事务处理</a>
+</h2>
+<h3 class="topic">
+<a name="1f5h099783019vkt61ja4v8puk">&nbsp;什么是事务</a>
+</h3>
+<h3 class="topic">
+<a name="3elt2rcjgqribi74ovjp47q55s">&nbsp;&nbsp;一个程序执行单元</a>
+</h3>
+<h3 class="topic">
+<a name="161lmdl8f3j1cpa5ji8e0fho8h">&nbsp;&nbsp;&nbsp;要么都执行要么都不执行</a>
+</h3>
+<h3 class="topic">
+<a name="7n96gco0f1ajjmloh0uoqrkj96">&nbsp;事务的功能</a>
+</h3>
+<h3 class="topic">
+<a name="0gaejc5g8jbc1eqrl9u8et20sf">&nbsp;&nbsp;START TRANSACTION;</a>
+</h3>
+<h3 class="topic">
+<a name="0pok5bda29ddluksk3vlhn6blm">&nbsp;&nbsp;set autocommit = 0</a>
+</h3>
+<h3 class="topic">
+<a name="7mf59vne772go0ubothuirovbl">&nbsp;&nbsp;SQL语句</a>
+</h3>
+<h3 class="topic">
+<a name="35n97rvek2evlogdkvuattrko6">&nbsp;&nbsp;COMMIT</a>
+</h3>
+<h3 class="topic">
+<a name="65tis3tmon715f31shar36hbh4">&nbsp;&nbsp;ROLLBACK</a>
+</h3>
+<h3 class="topic">
+<a name="1pm2plllnnqor83achl1167ut9">&nbsp;MyISAM</a>
+</h3>
+<h3 class="topic">
+<a name="1i1uh6ff49pujlam5kdhr8i79i">&nbsp;&nbsp;表级锁</a>
+</h3>
+<h3 class="topic">
+<a name="2r1dkuu8abekaij732omjqauhi">&nbsp;&nbsp;ROLLBACK 不支持</a>
+</h3>
+<h3 class="topic">
+<a name="74pmrqom01q7jpf59e47olf0vu">&nbsp;InnoDB</a>
+</h3>
+<h3 class="topic">
+<a name="1t93emlkrirtao811ot3bh54cj">&nbsp;&nbsp;行级别锁</a>
+</h3>
+<h3 class="topic">
+<a name="7mnsfcnl15usn6rg8nmuiq56ve">&nbsp;&nbsp;支持事务</a>
+</h3>
+<h2 class="topic">
+<a name="4i953csj2sko0nuc1ib0ssdeft">Insert插入二进制内容(图片、文件)和读取</a>
+</h2>
+<h3 class="topic">
+<a name="2koi668h9mbmdkdhfknai2vhqv">&nbsp;MYSQL_STMT *stmt = mysql_stmt_init(&amp;mysql)</a>
+</h3>
+<h3 class="topic">
+<a name="4gm0vlhp9pbo6aus0pg3affuf4">&nbsp;mysql_stmt_prepare(stmt,sql,sqllen)</a>
+</h3>
+<h3 class="topic">
+<a name="3jh3152gu62ts7t59sdtjqjk4p">&nbsp;&nbsp;INSERT INTO t_data(name,data,size) VALUES(?,?,?)</a>
+</h3>
+<h3 class="topic">
+<a name="5pvjdkm0fo1tv2o2t5i29b8qm7">&nbsp;mysql_stmt_bind_param(stmt,bind)</a>
+</h3>
+<h3 class="topic">
+<a name="2fb383usttv2a6en3vs36mlbog">&nbsp;&nbsp;MYSQL_BIND</a>
+</h3>
+<h3 class="topic">
+<a name="6ffg4pmm1aktqfmsdvjq06df69">&nbsp;&nbsp;&nbsp;MYSQL_TYPE_BLOB</a>
+</h3>
+<h3 class="topic">
+<a name="18gvqkcl97h89iev9sdf2jujnc">&nbsp;&nbsp;&nbsp;buffer</a>
+</h3>
+<h3 class="topic">
+<a name="6cldorbfvktdq1ui8lrvjrm4v7">&nbsp;&nbsp;&nbsp;buffer_length</a>
+</h3>
+<h3 class="topic">
+<a name="4guporp7qsqbs271ae2ofsm63k">&nbsp;mysql_stmt_execute(stmt)</a>
+</h3>
+<h3 class="topic">
+<a name="7fjv7hemfq1bhb8eqrl8gad62g">&nbsp;&nbsp;mysql_stmt_affected_rows()</a>
+</h3>
+<h3 class="topic">
+<a name="0rvm1219smpd0ka53dvaoi76bc">&nbsp;mysql_stmt_close(stmt)</a>
+</h3>
+<h3 class="topic">
+<a name="16b2c00jol2tks229mnvvs7mr2">&nbsp;mysql_stmt_error(stmt)</a>
+</h3>
+<h2 class="topic">
+<a name="3n0c1kmqi1q6qdv9h7n4cioonk">MYSQL API调用存储过程</a>
+</h2>
+<h3 class="topic">
+<a name="21c0lsduqgdfp48dvf01cen06r">&nbsp;创建存储过程</a>
+</h3>
+<h3 class="topic">
+<a name="333qsdhnsi3mbdbffg4lmg27kt">&nbsp;&nbsp;CREATE  PROCEDURE IF NOT EXISTS `p1`(&#13;
+ IN p_in INT, &#13;
+OUT p_out INT,&#13;
+INOUT p_inout INT)&#13;
+BEGIN &#13;
+SELECT p_in, p_out, p_inout; &#13;
+SET p_in = 100, p_out = 200, p_inout = 300; &#13;
+SELECT p_in, p_out, p_inout; &#13;
+END</a>
+</h3>
+<h3 class="topic">
+<a name="6qs0i75u1mnski49oaoorqpba6">&nbsp;调用存储过程</a>
+</h3>
+<h3 class="topic">
+<a name="6ad0248pu9nh28mnvsq7a46clf">&nbsp;&nbsp;SET @A=1;&#13;
+SET @B=2;&#13;
+SET @C=3;&#13;
+call p1(@A,@B,@C);&#13;
+select @A,@B,@C;</a>
+</h3>
+<h3 class="topic">
+<a name="61f9mhcilaac25op07ph8p28ru">&nbsp;&nbsp;stmt传参</a>
+</h3>
+<h2 class="topic">
+<a name="4bflg2snjpmcdqb9qfmscchpro">mysql锁</a>
+</h2>
+<h3 class="topic">
+<a name="0r6agdf3qqu4g88072ltjt6ue1">&nbsp;表锁</a>
+</h3>
+<h3 class="topic">
+<a name="47gtqk8304rrk75v0utk6q75g1">&nbsp;&nbsp;lock table t_image read;</a>
+</h3>
+<h3 class="topic">
+<a name="4ejj07bgcj60bl2j413sapaunm">&nbsp;&nbsp;lock table t_image write;</a>
+</h3>
+<h3 class="topic">
+<a name="6s0thoq96ailhl22rdamamk3m2">&nbsp;&nbsp;unlock tables;</a>
+</h3>
+<h3 class="topic">
+<a name="7f9l10j6nbgtt5kks1g1gaqh9a">&nbsp;&nbsp;命令行演示</a>
+</h3>
+<h3 class="topic">
+<a name="1bsg7p9jj1orev1gbfked7pnme">&nbsp;行锁（事务、innodb）</a>
+</h3>
+<h3 class="topic">
+<a name="5si7c6mmhljrv9tsr1s8p33bof">&nbsp;&nbsp;update t_image set name="xxxx" where id=50;</a>
+</h3>
+<h3 class="topic">
+<a name="3s4oq3vl2a38ijhao5or7hvrd8">&nbsp;&nbsp;select * from t_image for update</a>
+</h3>
+<h3 class="topic">
+<a name="0o1pe676rqotllgi73h8q2rgct">&nbsp;&nbsp;订票模拟</a>
+</h3>
+<h2 class="topic">
+<a name="3elpruga1jqe8jc6q3leimaeq6">C++封装 mysql API</a>
+</h2>
+<h3 class="topic">
+<a name="6jsdnfc9dairf2rmrqekdt9is0">&nbsp;封装策略</a>
+</h3>
+<h3 class="topic">
+<a name="0kmtqvgd4cv7ld146q4233aqfh">&nbsp;&nbsp;隐藏mysql</a>
+</h3>
+<h3 class="topic">
+<a name="3vuapp7qmqbhsh7qmfqq1ah0h4">&nbsp;&nbsp;&nbsp;可任意替换其他数据库api</a>
+</h3>
+<h3 class="topic">
+<a name="118its777oe1lm6hm10k721v0q">&nbsp;&nbsp;&nbsp;调用者不需要引用mysql头文件</a>
+</h3>
+<h3 class="topic">
+<a name="3hsfjtjmjejbmnbfndgbc1r2k5">&nbsp;&nbsp;可扩展线程安全</a>
+</h3>
+<h3 class="topic">
+<a name="291bp1hmc2hknq5ohfnfo7v53m">&nbsp;&nbsp;&nbsp;此版本不做线程安全</a>
+</h3>
+<h3 class="topic">
+<a name="11fe347keal7ngecng0rko3nod">&nbsp;&nbsp;简化数据接口</a>
+</h3>
+<h3 class="topic">
+<a name="7snftffitf2d7pe09j5vcss68p">&nbsp;&nbsp;&nbsp;利用map和vector等容器</a>
+</h3>
+<h3 class="topic">
+<a name="5nc9jfner12sn45rnernjgqtht">&nbsp;&nbsp;可扩展附加功能</a>
+</h3>
+<h3 class="topic">
+<a name="6d919nndo1ljg5taqhs70809so">&nbsp;&nbsp;&nbsp;字符集转换</a>
+</h3>
+<h3 class="topic">
+<a name="27rr0suq4imaos7ua3ub8hbjmf">&nbsp;&nbsp;&nbsp;文件存取</a>
+</h3>
+<h3 class="topic">
+<a name="1cdljj2qj6nll6625pqt85r8n7">&nbsp;&nbsp;跨平台</a>
+</h3>
+<h3 class="topic">
+<a name="4tsj0klf0mi7955bi1i9lq689d">&nbsp;&nbsp;&nbsp;windows</a>
+</h3>
+<h3 class="topic">
+<a name="1ivo1af2537o0crv7o1dnmgtqo">&nbsp;&nbsp;&nbsp;&nbsp;vs2017</a>
+</h3>
+<h3 class="topic">
+<a name="1h3qs0rh37flt0ggor1iv35sq4">&nbsp;&nbsp;&nbsp;linux</a>
+</h3>
+<h3 class="topic">
+<a name="7lbfqptkn26g0k6berdkm7aptf">&nbsp;&nbsp;&nbsp;&nbsp;g++</a>
+</h3>
+<h3 class="topic">
+<a name="16ajqqt6fgae3hk155qr0vq83l">&nbsp;&nbsp;&nbsp;&nbsp;makefile</a>
+</h3>
+<h3 class="topic">
+<a name="25ucth5lrru08qvc1kg0pc9h2v">&nbsp;LXMysql</a>
+</h3>
+<h3 class="topic">
+<a name="61vanntoldshkhfj3qmtjb845f">&nbsp;&nbsp;初始化和清理封装</a>
+</h3>
+<h3 class="topic">
+<a name="2iv1fucs3f2v3fi6fe2abk3m6f">&nbsp;&nbsp;&nbsp;bool Init()</a>
+</h3>
+<h3 class="topic">
+<a name="5ctkejmv5di9ppaepsnj54u9sv">&nbsp;&nbsp;&nbsp;void Close()</a>
+</h3>
+<h3 class="topic">
+<a name="7sec6hd8oi45pca7uddk8u1g4m">&nbsp;&nbsp;连接和参数设置封装</a>
+</h3>
+<h3 class="topic">
+<a name="6h1ca1mpe86n3374lreihih14s">&nbsp;&nbsp;&nbsp;bool Options(LX_OPTION opt, const void* v)</a>
+</h3>
+<h3 class="topic">
+<a name="5h2dnpgg0nsjph5kfartcpvmje">&nbsp;&nbsp;&nbsp;&nbsp;bool SetReconnect(bool isre);</a>
+</h3>
+<h3 class="topic">
+<a name="797bo7g6q39u9bc59osiopt20r">&nbsp;&nbsp;&nbsp;&nbsp;bool SetConnectTimeoutSec(int sec);</a>
+</h3>
+<h3 class="topic">
+<a name="4gn9v5imu8s53ak9q36sa86acs">&nbsp;&nbsp;&nbsp;bool Connect(const char *host, const char *user, const char *passwd, const char *db, unsigned short port, unsigned long flag)</a>
+</h3>
+<h3 class="topic">
+<a name="46854gore8h5smkfnq2j9obf20">&nbsp;&nbsp;执行SQL语句封装</a>
+</h3>
+<h3 class="topic">
+<a name="0ta5p3jj30b4o1u6ehp34g1lri">&nbsp;&nbsp;&nbsp;bool Query(const char *sql, unsigned long  sqllen);</a>
+</h3>
+<h3 class="topic">
+<a name="741h7dg81c9bbtj1p8jdg1gc6s">&nbsp;&nbsp;读取结果集封装</a>
+</h3>
+<h3 class="topic">
+<a name="17r3spjg6jm9sv109r4vnt6c88">&nbsp;&nbsp;&nbsp;结果集获取</a>
+</h3>
+<h3 class="topic">
+<a name="5bueqsf47ssjed9q1h88pg4598">&nbsp;&nbsp;&nbsp;&nbsp;bool StroreResult()</a>
+</h3>
+<h3 class="topic">
+<a name="04afhl7dp9ipod83875od1q3io">&nbsp;&nbsp;&nbsp;&nbsp;bool UseResult()</a>
+</h3>
+<h3 class="topic">
+<a name="7k6hdcpn6odo5qu69u9n4gb31k">&nbsp;&nbsp;&nbsp;结果集清理</a>
+</h3>
+<h3 class="topic">
+<a name="2b5nvn3rj787j6g2mmsvott5c4">&nbsp;&nbsp;&nbsp;&nbsp;void FreeResult()</a>
+</h3>
+<h3 class="topic">
+<a name="1sgnkcs3oac9iqu66sv5fovsb9">&nbsp;&nbsp;&nbsp;std::vector&lt;LXData&gt; LXMysql::FetchRow()</a>
+</h3>
+<h3 class="topic">
+<a name="73c489gr7f50qt1dolg48va98f">&nbsp;&nbsp;&nbsp;&nbsp;返回结果</a>
+</h3>
+<h3 class="topic">
+<a name="78ou80uben7btjudcerte4l63l">&nbsp;&nbsp;插入和修改数据封装</a>
+</h3>
+<h3 class="topic">
+<a name="4i1dln29q2ebl3vqau6fd6r151">&nbsp;&nbsp;&nbsp;typedef std::map&lt; std::string, LXData&gt; XDATA;</a>
+</h3>
+<h3 class="topic">
+<a name="4hfdi0sa93cqank4unoc581323">&nbsp;&nbsp;&nbsp;普通字符串数据</a>
+</h3>
+<h3 class="topic">
+<a name="35dv5nqdcedioqmkvn1qjt13vs">&nbsp;&nbsp;&nbsp;&nbsp;Insert(XDATA  kv, std::string table)</a>
+</h3>
+<h3 class="topic">
+<a name="7m1hub5jrr7u3ur1lfo0rt9r8h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GetInsertSql</a>
+</h3>
+<h3 class="topic">
+<a name="3eqi11mci0v8ci6mmasm6nckbd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GetInsertId</a>
+</h3>
+<h3 class="topic">
+<a name="4va025dah8ahkskkqevlaecou2">&nbsp;&nbsp;&nbsp;&nbsp;Update(XDATA kv, std::string table, std::string where)</a>
+</h3>
+<h3 class="topic">
+<a name="1r2480dt9cui73g62g6r9ubq85">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GetUpdateSql</a>
+</h3>
+<h3 class="topic">
+<a name="3jmv7gob74jt7ogka7mhutmvh7">&nbsp;&nbsp;&nbsp;二进制数据（文件、图片等）</a>
+</h3>
+<h3 class="topic">
+<a name="26s6mpb6hf8fmmmh8aicuseesj">&nbsp;&nbsp;&nbsp;&nbsp;InsertBin(XDATA kv, std::string table)</a>
+</h3>
+<h3 class="topic">
+<a name="1djqb6qoau2p5etujdkp74oqq4">&nbsp;&nbsp;&nbsp;&nbsp;UpdateBin(XDATA kv, std::string table, std::string where)</a>
+</h3>
+<h3 class="topic">
+<a name="3lihtjqqosmivse5tl7668ofs2">&nbsp;&nbsp;事务处理封装</a>
+</h3>
+<h3 class="topic">
+<a name="54v01mudiecv4uh036lb02b0hj">&nbsp;LXData</a>
+</h3>
+<h3 class="topic">
+<a name="57c81nn50j0rrlb92oi73j15k8">&nbsp;&nbsp;文件读写封装</a>
+</h3>
+<h3 class="topic">
+<a name="7n0r047r45l0bb0kbv2s9t0rhm">&nbsp;&nbsp;&nbsp;fstream</a>
+</h3>
+<h3 class="topic">
+<a name="02v6gfomg287tm5glvetmit68s">&nbsp;&nbsp;Mysql中文问题</a>
+</h3>
+<h3 class="topic">
+<a name="55d0962hj8qo4baopiv5ni1it7">&nbsp;&nbsp;&nbsp;字符编码类型</a>
+</h3>
+<h3 class="topic">
+<a name="7vt3u02qgpp5stta9f1eifnk31">&nbsp;&nbsp;&nbsp;&nbsp;GBK</a>
+</h3>
+<h3 class="topic">
+<a name="7u2olu7lp20s9bnlu2pc583d6r">&nbsp;&nbsp;&nbsp;&nbsp;UTF-8</a>
+</h3>
+<h3 class="topic">
+<a name="5lja9uo1afhu4koc5sfgfcnuge">&nbsp;&nbsp;&nbsp;&nbsp;Unicode</a>
+</h3>
+<h3 class="topic">
+<a name="008o7almct5j5h9q7odadk3ndu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wchar_t</a>
+</h3>
+<h3 class="topic">
+<a name="176728ftjvvebaeeq45pfusmtj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;windows</a>
+</h3>
+<h3 class="topic">
+<a name="1uhtk3sjotjokr6t3i78cjhs6v">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;utf-16 UCS-2</a>
+</h3>
+<h3 class="topic">
+<a name="645v7l13sbro06viejjecruof5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linux</a>
+</h3>
+<h3 class="topic">
+<a name="6smersorgapu4ffjrlj43ptkko">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uft-32 UCS-4</a>
+</h3>
+<h3 class="topic">
+<a name="51e4l8777jhghi49dgm8kb3fm6">&nbsp;&nbsp;&nbsp;mysql编码</a>
+</h3>
+<h3 class="topic">
+<a name="65643id3robefc5n9pf1bj1l61">&nbsp;&nbsp;&nbsp;&nbsp;字段编码设置</a>
+</h3>
+<h3 class="topic">
+<a name="13jocjh71nugolfj7b5p3f2tu5">&nbsp;&nbsp;&nbsp;&nbsp;库默认编码</a>
+</h3>
+<h3 class="topic">
+<a name="6ucktmh8v60lm39j4gqku504pj">&nbsp;&nbsp;&nbsp;&nbsp;表默认编码</a>
+</h3>
+<h3 class="topic">
+<a name="3o6tc3vuvvqmpquuicdcl4e3ik">&nbsp;&nbsp;&nbsp;&nbsp;set names utf8</a>
+</h3>
+<h3 class="topic">
+<a name="52d716lpsbosk3ihuh5gsoia2s">&nbsp;&nbsp;&nbsp;C/C++ 转码SDK</a>
+</h3>
+<h3 class="topic">
+<a name="760d62bdng00up386c2k1q2pko">&nbsp;&nbsp;&nbsp;&nbsp;STL</a>
+</h3>
+<h3 class="topic">
+<a name="2bd85q1n3j1bc8a095ts0snra2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;codecvt</a>
+</h3>
+<h3 class="topic">
+<a name="69fo32nqbckc9v6s2s7k555qig">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;codecvt_utf8</a>
+</h3>
+<h3 class="topic">
+<a name="44flpt55kdve7j2tlhojf85mn7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use_facet</a>
+</h3>
+<h3 class="topic">
+<a name="6arvakag2h04bhqjvief637qp8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;std::locale</a>
+</h3>
+<h3 class="topic">
+<a name="01lt28fth3k85demncbapbce4k">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码兼容文件</a>
+</h3>
+<h3 class="topic">
+<a name="2fqa5f9hobc4clvn3rvh2egteo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gcc高版本</a>
+</h3>
+<h3 class="topic">
+<a name="4u6vb99aqge06b7mjp9m37aisl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs2015-vs2017与vs2013和gcc不兼容</a>
+</h3>
+<h3 class="topic">
+<a name="4to93dk738ih7lhp6ivg58etp1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gbk转码依赖环境</a>
+</h3>
+<h3 class="topic">
+<a name="13dtevnisfo6sne97gve1df201">&nbsp;&nbsp;&nbsp;&nbsp;Windows</a>
+</h3>
+<h3 class="topic">
+<a name="4slst550hhs1nmau4urfj4kjcl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MultiByteToWideChar</a>
+</h3>
+<h3 class="topic">
+<a name="3apc16nlnjmsg4tqtudkmjmjjc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WideCharToMultiByte(</a>
+</h3>
+<h3 class="topic">
+<a name="6avk1k0lk16ibtt95diucqspdb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		CP_ACP,	//转换的格式</a>
+</h3>
+<h3 class="topic">
+<a name="6ppp48apk6igq0ub6rm5is10vu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		0,		//默认转换方式</a>
+</h3>
+<h3 class="topic">
+<a name="3tqu3kekvhlpaan9qarfqr05k5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		str,	//输入字节</a>
+</h3>
+<h3 class="topic">
+<a name="46bvohl9svofs0u8slq574bpon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		-1,		//字符串大小，-1就是找\0计算大小</a>
+</h3>
+<h3 class="topic">
+<a name="0f7ar6tf8c35j33mqldn3ii5o8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		data,		//输出地址</a>
+</h3>
+<h3 class="topic">
+<a name="1agjqo35ullnvu7lsv5o0kp5mn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		num,		//输出空间大小</a>
+</h3>
+<h3 class="topic">
+<a name="5r55qu3rh5br7lglat509m0fv7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		0,		//失败默认替换</a>
+</h3>
+<h3 class="topic">
+<a name="54ahhgr2j29a8efgbth050a6td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//		false</a>
+</h3>
+<h3 class="topic">
+<a name="125aehjl549n5gul6vdm83oj39">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//	)</a>
+</h3>
+<h3 class="topic">
+<a name="26871bor9ncm0c13081ibafldd">&nbsp;&nbsp;&nbsp;&nbsp;linux</a>
+</h3>
+<h3 class="topic">
+<a name="4jlf0mam76ai1f56fk5hs955js">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iconv_open</a>
+</h3>
+<h3 class="topic">
+<a name="1dbpva6vleolms4l6ku9jh2rab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iconv</a>
+</h3>
+<h2 class="topic">
+<a name="6ecg9l2343v3g8t3aknn52ratv">日志审计系统示例</a>
+</h2>
+<h3 class="topic">
+<a name="0ncn480n6413b340te44187quo">&nbsp;日志设置</a>
+</h3>
+<h3 class="topic">
+<a name="66vp6t3ge6vfamlktu721188st">&nbsp;&nbsp;tail -f /var/log/auth.log</a>
+</h3>
+<h3 class="topic">
+<a name="5heh2hcqnu5k39u9ld1j74pk9j">&nbsp;&nbsp;/etc/init.d/rsyslog restart</a>
+</h3>
+<h3 class="topic">
+<a name="1nrh5r5d10o4cuu93bpd0pto3s">&nbsp;&nbsp;ssh 192.168.3.89</a>
+</h3>
+<h3 class="topic">
+<a name="7uatra12cm0pq04fcnqpaadfek">&nbsp;&nbsp;&nbsp;输入错误的密码</a>
+</h3>
+<h3 class="topic">
+<a name="0o6srh2om203idrhgriter5sra">&nbsp;&nbsp;&nbsp;成功登录</a>
+</h3>
+<h3 class="topic">
+<a name="1o46ju6001iojm4q0ahht2336k">&nbsp;agent</a>
+</h3>
+<h3 class="topic">
+<a name="05hqjab1ua2q4l1tqikbf3ue79">&nbsp;&nbsp;读取日志，插入数据库</a>
+</h3>
+<h3 class="topic">
+<a name="1mlgl91bihg0qdrgasfituvspg">&nbsp;&nbsp;&nbsp;FILE *fp = fopen("/var/log/auth.log","rb");&#13;
+	fseek(fp,0,SEEK_END);&#13;
+	string str = "";&#13;
+	bool isbegin = false;&#13;
+	for(;;)&#13;
+	{&#13;
+		char c = fgetc(fp);&#13;
+		if(c&lt;=0)&#13;
+		{&#13;
+			if(isbegin)&#13;
+			{&#13;
+				isbegin = false;&#13;
+				//cout&lt;&lt;str&lt;&lt;endl;&#13;
+				Log(str);&#13;
+			}&#13;
+			std::this_thread::sleep_for(500ms);&#13;
+			continue;&#13;
+		}&#13;
+		isbegin = true;&#13;
+		if(c == '\n')&#13;
+			Log(str);&#13;
+		else&#13;
+			str += c;&#13;
+	}</a>
+</h3>
+<h3 class="topic">
+<a name="7edoda512iob56bq0ev1tr6df1">&nbsp;center</a>
+</h3>
+<h3 class="topic">
+<a name="72gp5riv148hl7buk3c3gv3sp2">&nbsp;&nbsp;编写审计规则</a>
+</h3>
+<h3 class="topic">
+<a name="6bkipvftdn5h9goitgtr1dh8sh">&nbsp;&nbsp;&nbsp;直接在数据库插入</a>
+</h3>
+<h3 class="topic">
+<a name="1jkhh9a1le99md7ob73umclg5a">&nbsp;&nbsp;&nbsp;从文件导入规则？</a>
+</h3>
+<h3 class="topic">
+<a name="14m2t3tfs96n6urkd2nn4ch0l7">&nbsp;&nbsp;&nbsp;.*Failed password for (.+) from ([0-9.]+) port ([0-9]+).*</a>
+</h3>
+<h3 class="topic">
+<a name="5l2e5dnk990lin3hfhu2a1lo89">&nbsp;&nbsp;&nbsp;&nbsp;string str = "Jan  2 21:00:08 ubuntu sshd[42291]: Failed password for xcj from 192.168.3.89 port 44578 ssh2";</a>
+</h3>
+<h3 class="topic">
+<a name="5gvhhj1baniitsf4mcbplmhlbp">&nbsp;&nbsp;&nbsp;&nbsp;std::string pattern =  ".*Failed password for (.+) from ([0-9.]+) port ([0-9]+).*"</a>
+</h3>
+<h3 class="topic">
+<a name="7t6ecc2utrlrpbpq2va383esj3">&nbsp;&nbsp;&nbsp;&nbsp;std::regex re(pattern);</a>
+</h3>
+<h3 class="topic">
+<a name="4h9eo3negb7kkosub5svkljj57">&nbsp;&nbsp;&nbsp;&nbsp;std::smatch base_match;	</a>
+</h3>
+<h3 class="topic">
+<a name="544d5n85b49u6tvse56ctdef6s">&nbsp;&nbsp;&nbsp;&nbsp;bool ret = std::regex_match(str, base_match,re); </a>
+</h3>
+<h3 class="topic">
+<a name="7t7jo8v1s3orkbk5s4nk59lti0">&nbsp;&nbsp;&nbsp;&nbsp;if (ret) {cout&lt;&lt;"can match ["&lt;&lt;base_match[1]&lt;&lt;"],["&lt;&lt;base_match[2]&lt;&lt;"],["&lt;&lt;base_match[3]&lt;&lt;"]"&lt;&lt;endl;}</a>
+</h3>
+<h3 class="topic">
+<a name="20husamdu9m0n8tovfte37s7j2">&nbsp;&nbsp;&nbsp;审计策略</a>
+</h3>
+<h3 class="topic">
+<a name="1tcbt19q6shgb2t41o785l72sn">&nbsp;&nbsp;&nbsp;&nbsp;登录密码错误</a>
+</h3>
+<h3 class="topic">
+<a name="10lc2ofjqqr1dv8sv363qjssb4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日志</a>
+</h3>
+<h3 class="topic">
+<a name="2c1c8gf7g2o8q5ebjvei1290lu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jan  2 21:00:08 ubuntu sshd[42291]: Failed password for xcj from 192.168.3.89 port 44578 ssh2</a>
+</h3>
+<h3 class="topic">
+<a name="1oj7cknb4vjtkk1h8t7oiatrhu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正则</a>
+</h3>
+<h3 class="topic">
+<a name="2mblet61enh8urcdi09ekuim8p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.*Failed password for (.+) from ([0-9.]+) port ([0-9]+).*</a>
+</h3>
+<h3 class="topic">
+<a name="4hu14h3m0ov5eigcmltckco75r">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审计结果</a>
+</h3>
+<h3 class="topic">
+<a name="69885v42df4lcgr5pjtt8e51k1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录用户名，IP，端口，时间</a>
+</h3>
+<h3 class="topic">
+<a name="2aie422o3bl54tun2n3nh1qpol">&nbsp;&nbsp;&nbsp;&nbsp;登录成功</a>
+</h3>
+<h3 class="topic">
+<a name="536ae4vl0vthcpecdtaumcfrop">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日志</a>
+</h3>
+<h3 class="topic">
+<a name="5cr2tsppqlve00cg03rd8eptnc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jan  2 21:31:09 ubuntu sshd[43681]: Accepted password for xcj from 192.168.3.89 port 44602 ssh2</a>
+</h3>
+<h3 class="topic">
+<a name="6oakh17b33h5abrfbtttc7cti7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正则</a>
+</h3>
+<h3 class="topic">
+<a name="2n86lc0hbuhtr3uab6bmdhsio8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.*Accepted password for (.+) from ([0-9.]+) port ([0-9]+).*</a>
+</h3>
+<h3 class="topic">
+<a name="08r9dna4a450clthukup760a1m">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审计结果</a>
+</h3>
+<h3 class="topic">
+<a name="04hk8sdfs0poibprhhegul59va">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录用户名，IP，端口，时间</a>
+</h3>
+<h3 class="topic">
+<a name="63pgc07aj313kn1alhmef6q2ov">&nbsp;&nbsp;添加监控设备</a>
+</h3>
+<h3 class="topic">
+<a name="4ke1nud64s2nv3efrlt2d6j0tu">&nbsp;&nbsp;&nbsp;设备名称</a>
+</h3>
+<h3 class="topic">
+<a name="1ikfb6l277nvlk37nfheiqtup5">&nbsp;&nbsp;&nbsp;设备ID</a>
+</h3>
+<h3 class="topic">
+<a name="6ec9uf7tigkal96v9n1bgbpbiq">&nbsp;&nbsp;&nbsp;设备IP</a>
+</h3>
+<h3 class="topic">
+<a name="271b2gpi9l3r3f0hc6vu0jcahh">&nbsp;&nbsp;&nbsp;设备状态</a>
+</h3>
+<h3 class="topic">
+<a name="4ol11n9dtnj8b6mufuhfao8o91">&nbsp;&nbsp;&nbsp;&nbsp;心跳包</a>
+</h3>
+<h3 class="topic">
+<a name="3g8sbttbetvsaal92ctc3779h0">&nbsp;&nbsp;审计并写入审计结果</a>
+</h3>
+<h3 class="topic">
+<a name="3rttb1jcmceot69k2djoakc0e0">&nbsp;&nbsp;注册用户</a>
+</h3>
+<h3 class="topic">
+<a name="6kv9tquohmfr8igvgdh2a2mn28">&nbsp;client</a>
+</h3>
+<h3 class="topic">
+<a name="36hbbd7rtjhdge061lc2j47ps2">&nbsp;&nbsp;显示日志</a>
+</h3>
+<h3 class="topic">
+<a name="0d629uud8o2up4kn5ekjnh7c59">&nbsp;&nbsp;&nbsp;分页处理</a>
+</h3>
+<h3 class="topic">
+<a name="4bmprm20pjbtm8uvoa7hk6lf6d">&nbsp;&nbsp;&nbsp;&nbsp;每页100条</a>
+</h3>
+<h3 class="topic">
+<a name="5i3teaheusef6qsp8vt2qqspvl">&nbsp;&nbsp;登录</a>
+</h3>
+<h3 class="topic">
+<a name="7r4ea00sn4f533985pf9ok8dgi">&nbsp;&nbsp;搜索日志</a>
+</h3>
+<h3 class="topic">
+<a name="35v95j99i85is9jq5detnkvjsd">&nbsp;&nbsp;&nbsp;ip</a>
+</h3>
+<h3 class="topic">
+<a name="1uidalhhq5fp78q4j3tviovjtn">&nbsp;&nbsp;&nbsp;&nbsp;测试索引和无索引效率</a>
+</h3>
+<h3 class="topic">
+<a name="0fnvffqg0tocdacalc3fesfnp2">&nbsp;&nbsp;&nbsp;内容</a>
+</h3>
+<h3 class="topic">
+<a name="6qtb5tu02iv62uscfplddgubog">&nbsp;&nbsp;&nbsp;&nbsp;模糊查找</a>
+</h3>
+<h3 class="topic">
+<a name="5oono9045oc8bv28lubeg3qrv8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like</a>
+</h3>
+<h3 class="topic">
+<a name="71kr82ehm7p6gt4iehp4d4p64n">&nbsp;&nbsp;&nbsp;插入测试数据</a>
+</h3>
+<h3 class="topic">
+<a name="71g998dq75bj29l3achjsagq22">&nbsp;&nbsp;&nbsp;&nbsp;用事务插入两百万条记录</a>
+</h3>
+<h2 class="topic">
+<a name="6ij5cob6k21paqqkbnorb43lmh">讲师：夏曹俊 </a>
+</h2>
+</body>
+</html>
