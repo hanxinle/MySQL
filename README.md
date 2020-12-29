@@ -1,5 +1,5 @@
 # 数据库从小白到进阶
-### 小工报到
+## 小工报到
 
 通过 vscode 安装插件连接 mysql 并且操作，在建立连接的时候，提示“Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client”，解决方法是打开 >mysql，执行以下语句：
 
@@ -377,3 +377,7 @@ ALTER TABLE user CHANGE username user_name varchar(20);
 * 关系
 
 不同的表可以有效率地表达信息，减少单个表信息的冗余，当需要的时候，可以通过联结表征更多信息。关系有一对多、多对多几种，用新的表的形式组织，联结的对象是table，联结有内部联结（inner join）、外部联结（left join、left join）。
+
+## 2 开发相关
+
+采用 C++ 语言，具体见[文档](./cppdev.md)。
