@@ -1,6 +1,6 @@
 # 数据库从小白到进阶
 
-## 1 项目：日志设计系统
+## 1 项目：日志审计系统
 
 访问此项目请单击此[链接](https://github.com/hanxinle/XLogAuditor)，采用 C++ ，API相关信息请查看这个[文档](./cppdev.md)。
 
